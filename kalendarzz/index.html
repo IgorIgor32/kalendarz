@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('https://i.imgur.com/MK00mTu.jpg');
+            background-size: cover; 
+            background-position: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #header {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        #header img {
+            width: 300px; 
+            height: auto; 
+        }
+
+        table {
+            border-spacing: 10px;
+            margin-top: 50px; 
+        }
+
+        td {
+            text-align: center;
+        }
+
+        button {
+            width: 100px; 
+            height: 100px;
+            font-size: 24px; 
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 10px;
+        }
+
+        .image-container {
+            position: absolute;
+            display: none;
+        }
+
+        .image-container img {
+            width: 100px; 
+            height: auto; 
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <img src="turbina.png" alt="Turbina">
+    </div>
+    <table>
+        <script>
+           
+            const emojis = ["🎁", "🎁","🎁","🎁","🎁","🎁","🎁","🎁","🎁","🎁","🎁","🎁","🎁","🎁","🎁","🎁","🎁","🎁","🎁","🎁","🎁","🎁","🎁","🎁","🎁","🎁","🎁","🎁",];
+
+            const table = document.querySelector('table');
+            const header = document.getElementById('header');
+            const imageContainer = document.createElement('div');
+            imageContainer.classList.add('image-container');
+            document.body.appendChild(imageContainer);
+
+           
+            for (let i = 0; i < 4; i++) {
+                const row = table.insertRow();
+                for (let j = 0; j < 6; j++) {
+                    const cell = row.insertCell();
+                    const button = document.createElement('button');
+                    button.textContent = emojis[i * 6 + j];
+                    button.addEventListener('click', () => showRandomImage(button));
+                    cell.appendChild(button);
+                }
+            }
+
+            
+            function showRandomImage(button) {
+                const randomImageURLs = [
+                    'https://prod.cosy.bmw.cloud/bmwweb/cosySec?COSY-EU-100-7331cqgv2Z7d%25i02uCaY3MuO2kOHUtWPfbYf0jka10tLhu1XzWVo7puMLWFmdkAj5DOPEtpsZ8XgY1nTNIowJ4HO3zkyXq%25sGM8snGhMQSk%2508Xc9Vo74gA6%25NF1VgxNJ0%25lI2oub5imC2yRCzXeTt%25ViPRKVZVYV0GWh1DMztzAReqVYDafHY8jmztYRSJOM67aftxdT%25hw1RSfWQlEC%25VxdSeZsN7uzWQdjc96k3aeZQ6KompXRjcZwBL7zrx6Kc%252NKd4WwBKupkBTFe%252B3in1oIjup2XH50nv63iprJ8m4GwXHi4TpCo9%25rJHFlisjou4TJIsHkXL3FlTv0JnvyXIslGAT5hCrv0s9O58oE4GA0og8PXNF9OALUPMZkIogOybMxrnvLUgChDWP5GybUEqY6e89ChbNmtQrPoEqhk7f0fMLNmqn1kSbDyk7m5VnJ5YCn178z5hhtE5V1Pa8TffN8zVMRPoDSkPazDxz40dnMRaYWaF0Q5DxRteRckZ8Xxi02jRCzgTWX%25Vi18aSOfbYG9ER',
+                    'https://dolcar.auto.pl/wp-content/uploads/2019/03/audi-rs6.png'
+                ];
+
+                const randomImageURL = randomImageURLs[Math.floor(Math.random() * randomImageURLs.length)];
+
+                
+                const image = new Image();
+                image.src = randomImageURL;
+                image.onload = () => {
+                    
+                    const buttonRect = button.getBoundingClientRect();
+                    imageContainer.style.top = `${buttonRect.top}px`;
+                    imageContainer.style.left = `${buttonRect.left}px`;
+
+                  
+                    button.style.display = 'none';
+                    imageContainer.innerHTML = '';
+                    imageContainer.appendChild(image);
+                    imageContainer.style.display = 'block';
+
+                   
+                };
+            }
+        </script>
+    </table>
+</body>
+</html>
